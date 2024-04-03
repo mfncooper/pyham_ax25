@@ -1,0 +1,40 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pyham_ax25"
+description = "AX.25 Frame Encoding and Decoding & Socket Support"
+keywords = [
+        "ham radio", "amateur radio", "packet radio",
+        "AX.25", "AX25", "APRS", "NET/ROM", "NETROM", "protocol"
+]
+authors = [{name = "Martin F N Cooper", email = "mfncooper@gmail.com"}]
+readme = "README.md"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Communications :: Ham Radio"
+]
+requires-python = ">=3.7"
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://pyham_ax25.readthedocs.io"
+"Source Code" = "https://github.com/mfncooper/pyham_ax25"
+
+[tool.flit.module]
+name = "ax25"
+
+[tool.flit.sdist]
+include = [
+    "docs/",
+    "examples/",
+    "test/",
+    "tox.ini"
+]
+exclude = [
+    "docs/_build/"
+]
