@@ -70,7 +70,7 @@ $ git clone https://github.com/mfncooper/pyham_ax25
 ## Documentation
 
 Full documentation is available
-[online](https://pyham_ax25.readthedocs.io/en/latest/)
+[online](https://pyham-ax25.readthedocs.io/en/latest/)
 and includes the following:
 
 <dl>
