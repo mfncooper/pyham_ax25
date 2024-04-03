@@ -48,4 +48,3 @@ html_theme_options = {
     'prev_next_buttons_location': 'none'
 }
 html_show_sourcelink = False
-html_static_path = ['_static']
