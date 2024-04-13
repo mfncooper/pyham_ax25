@@ -77,22 +77,32 @@ and includes the following:
 <dt><b>User Guide</b></dt>
 <dd>The User Guide walks through some use cases for the package, starting
 from the basics and adding capability as it progresses.</dd>
-<br>
 <dt><b>Examples</b></dt>
 <dd>Complete example applications are included, in order that a developer
 can observe the usage of the package in a real-world scenario.</dd>
-<br>
 <dt><b>API Reference</b></dt>
 <dd>If you are looking for information on a specific function, class, or
 method, this part of the documentation is for you.</dd>
 </dl>
+
+## Discussion
+
+If you have questions about how to use this package, the documentation should
+be your first point of reference. If the User Guide, API Reference, or Examples
+don't answer your questions, or you'd simply like to share your experiences
+or generally discuss this package, please join the community on the
+[PyHam AX.25 Discussions](https://github.com/mfncooper/pyham_ax25/discussions)
+forum.
+
+Note that the GitHub Issues tracker should be used only for reporting bugs or
+filing feature requests, and should not be used for questions or general
+discussion.
 
 ## References
 
 <dl>
 <dt>AX.25 v2.2 protocol reference:</dt>
 <dd><a href="http://www.tapr.org/pdf/AX25.2.2.pdf">http://www.tapr.org/pdf/AX25.2.2.pdf</a></dd>
-<br>
 <dt>NET/ROM protocol reference:</dt>
 <dd><a href="https://packet-radio.net/wp-content/uploads/2017/04/netrom1.pdf">https://packet-radio.net/wp-content/uploads/2017/04/netrom1.pdf</a></dd>
 </dl>
