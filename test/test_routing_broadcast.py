@@ -91,18 +91,18 @@ def test_getters(sender, destinations):
         b'\xffMYNODE'),
     ('MYNODE', [ax25.netrom.Destination('W1AW', 'NODE1', 'KU6S', 42)],
         b'\xffMYNODE'
-        b'\xae\x62\x82\xae\x40\x40\x00NODE1 '
-        b'\x96\xaa\x6c\xa6\x40\x40\x00\x2a'),
+        b'\xae\x62\x82\xae\x40\x40\x60NODE1 '
+        b'\x96\xaa\x6c\xa6\x40\x40\x60\x2a'),
     ('MYNODE',
         [
             ax25.netrom.Destination('W1AW', 'NODE1', 'KU6S', 42),
             ax25.netrom.Destination('WR6ABD', 'NODE2', 'K6EAG', 21)
         ],
         b'\xffMYNODE'
-        b'\xae\x62\x82\xae\x40\x40\x00NODE1 '
-        b'\x96\xaa\x6c\xa6\x40\x40\x00\x2a'
-        b'\xae\xa4\x6c\x82\x84\x88\x00NODE2 '
-        b'\x96\x6c\x8a\x82\x8e\x40\x00\x15')
+        b'\xae\x62\x82\xae\x40\x40\x60NODE1 '
+        b'\x96\xaa\x6c\xa6\x40\x40\x60\x2a'
+        b'\xae\xa4\x6c\x82\x84\x88\x60NODE2 '
+        b'\x96\x6c\x8a\x82\x8e\x40\x60\x15')
 ])
 def test_pack(sender, destinations, expected):
     rb = ax25.netrom.RoutingBroadcast(sender, destinations)

@@ -258,7 +258,7 @@ def test_pack_callsign_only(in_call, packed_call):
     packed = addr.pack()
     assert len(packed) == 7
     assert packed[0:6] == packed_call
-    assert packed[6] == 0
+    assert packed[6] == ax25.RESERVED
 
 
 @pytest.mark.parametrize("in_call, packed_call", [
@@ -272,13 +272,13 @@ def test_pack_callsign_only_bytes(in_call, packed_call):
     packed = bytes(addr)
     assert len(packed) == 7
     assert packed[0:6] == packed_call
-    assert packed[6] == 0
+    assert packed[6] == ax25.RESERVED
 
 
 @pytest.mark.parametrize("in_call, packed_call, last_byte", [
-    ('W1AW-0', b'\xae\x62\x82\xae\x40\x40', 0x00),
-    ('W1AW-1', b'\xae\x62\x82\xae\x40\x40', 0x02),
-    ('W1AW-15', b'\xae\x62\x82\xae\x40\x40', 0x1E)
+    ('W1AW-0', b'\xae\x62\x82\xae\x40\x40', 0x60),
+    ('W1AW-1', b'\xae\x62\x82\xae\x40\x40', 0x62),
+    ('W1AW-15', b'\xae\x62\x82\xae\x40\x40', 0x7E)
 ])
 def test_pack_callsign_with_ssid(in_call, packed_call, last_byte):
     addr = ax25.Address(in_call)
@@ -289,9 +289,9 @@ def test_pack_callsign_with_ssid(in_call, packed_call, last_byte):
 
 
 @pytest.mark.parametrize("in_call, in_ssid, packed_call, last_byte", [
-    ('W1AW', 0, b'\xae\x62\x82\xae\x40\x40', 0x00),
-    ('W1AW', 1, b'\xae\x62\x82\xae\x40\x40', 0x02),
-    ('W1AW', 15, b'\xae\x62\x82\xae\x40\x40', 0x1E)
+    ('W1AW', 0, b'\xae\x62\x82\xae\x40\x40', 0x60),
+    ('W1AW', 1, b'\xae\x62\x82\xae\x40\x40', 0x62),
+    ('W1AW', 15, b'\xae\x62\x82\xae\x40\x40', 0x7E)
 ])
 def test_pack_callsign_and_ssid(in_call, in_ssid, packed_call, last_byte):
     addr = ax25.Address(in_call, in_ssid)
@@ -302,10 +302,10 @@ def test_pack_callsign_and_ssid(in_call, in_ssid, packed_call, last_byte):
 
 
 @pytest.mark.parametrize("in_call, packed_call, last_byte", [
-    ('W1AW', b'\xae\x62\x82\xae\x40\x40', 0x00),
-    ('W1AW*', b'\xae\x62\x82\xae\x40\x40', 0x80),
-    ('W1AW-3', b'\xae\x62\x82\xae\x40\x40', 0x06),
-    ('W1AW-3*', b'\xae\x62\x82\xae\x40\x40', 0x86)
+    ('W1AW', b'\xae\x62\x82\xae\x40\x40', 0x60),
+    ('W1AW*', b'\xae\x62\x82\xae\x40\x40', 0xE0),
+    ('W1AW-3', b'\xae\x62\x82\xae\x40\x40', 0x66),
+    ('W1AW-3*', b'\xae\x62\x82\xae\x40\x40', 0xE6)
 ])
 def test_pack_has_been_repeated(in_call, packed_call, last_byte):
     addr = ax25.Address(in_call, repeater=True)
@@ -316,10 +316,10 @@ def test_pack_has_been_repeated(in_call, packed_call, last_byte):
 
 
 @pytest.mark.parametrize("in_call, in_cmdresp, packed_call, last_byte", [
-    ('W1AW', False, b'\xae\x62\x82\xae\x40\x40', 0x00),
-    ('W1AW', True, b'\xae\x62\x82\xae\x40\x40', 0x80),
-    ('W1AW-3', False, b'\xae\x62\x82\xae\x40\x40', 0x06),
-    ('W1AW-3', True, b'\xae\x62\x82\xae\x40\x40', 0x86)
+    ('W1AW', False, b'\xae\x62\x82\xae\x40\x40', 0x60),
+    ('W1AW', True, b'\xae\x62\x82\xae\x40\x40', 0xE0),
+    ('W1AW-3', False, b'\xae\x62\x82\xae\x40\x40', 0x66),
+    ('W1AW-3', True, b'\xae\x62\x82\xae\x40\x40', 0xE6)
 ])
 def test_pack_command_response(in_call, in_cmdresp, packed_call, last_byte):
     addr = ax25.Address(in_call)
@@ -331,6 +331,22 @@ def test_pack_command_response(in_call, in_cmdresp, packed_call, last_byte):
 
 
 @pytest.mark.parametrize("in_packed, call, ssid, cmdresp", [
+    (b'\xae\x62\x82\xae\x40\x40\x60', 'W1AW', 0, False),
+    (b'\xae\x62\x82\xae\x40\x40\x66', 'W1AW', 3, False),
+    (b'\xae\x62\x82\xae\x40\x40\xE0', 'W1AW', 0, True),
+    (b'\xae\x62\x82\xae\x40\x40\xE6', 'W1AW', 3, True),
+    (b'\x96\x6c\x8a\x82\x8e\x40\x64', 'K6EAG', 2, False),
+    (b'\xae\xa4\x6c\x82\x84\x88\x64', 'WR6ABD', 2, False)
+])
+def test_unpack_non_repeater(in_packed, call, ssid, cmdresp):
+    addr = ax25.Address.unpack(in_packed)
+    assert addr.call == call
+    assert addr.ssid == ssid
+    assert not addr.repeater
+    assert addr.command_response == cmdresp
+
+
+@pytest.mark.parametrize("in_packed, call, ssid, cmdresp", [
     (b'\xae\x62\x82\xae\x40\x40\x00', 'W1AW', 0, False),
     (b'\xae\x62\x82\xae\x40\x40\x06', 'W1AW', 3, False),
     (b'\xae\x62\x82\xae\x40\x40\x80', 'W1AW', 0, True),
@@ -338,7 +354,7 @@ def test_pack_command_response(in_call, in_cmdresp, packed_call, last_byte):
     (b'\x96\x6c\x8a\x82\x8e\x40\x04', 'K6EAG', 2, False),
     (b'\xae\xa4\x6c\x82\x84\x88\x04', 'WR6ABD', 2, False)
 ])
-def test_unpack_non_repeater(in_packed, call, ssid, cmdresp):
+def test_unpack_non_repeater_ignore_reserved(in_packed, call, ssid, cmdresp):
     addr = ax25.Address.unpack(in_packed)
     assert addr.call == call
     assert addr.ssid == ssid
@@ -353,6 +369,22 @@ def test_unpack_non_repeater_repeated():
 
 
 @pytest.mark.parametrize("in_packed, call, ssid, repeated", [
+    (b'\xae\x62\x82\xae\x40\x40\x60', 'W1AW', 0, False),
+    (b'\xae\x62\x82\xae\x40\x40\x66', 'W1AW', 3, False),
+    (b'\xae\x62\x82\xae\x40\x40\xE0', 'W1AW', 0, True),
+    (b'\xae\x62\x82\xae\x40\x40\xE6', 'W1AW', 3, True),
+    (b'\x96\x6c\x8a\x82\x8e\x40\x64', 'K6EAG', 2, False),
+    (b'\xae\xa4\x6c\x82\x84\x88\x64', 'WR6ABD', 2, False)
+])
+def test_unpack_repeater(in_packed, call, ssid, repeated):
+    addr = ax25.Address.unpack(in_packed, repeater=True)
+    assert addr.call == call
+    assert addr.ssid == ssid
+    assert addr.repeater
+    assert addr.has_been_repeated == repeated
+
+
+@pytest.mark.parametrize("in_packed, call, ssid, repeated", [
     (b'\xae\x62\x82\xae\x40\x40\x00', 'W1AW', 0, False),
     (b'\xae\x62\x82\xae\x40\x40\x06', 'W1AW', 3, False),
     (b'\xae\x62\x82\xae\x40\x40\x80', 'W1AW', 0, True),
@@ -360,7 +392,7 @@ def test_unpack_non_repeater_repeated():
     (b'\x96\x6c\x8a\x82\x8e\x40\x04', 'K6EAG', 2, False),
     (b'\xae\xa4\x6c\x82\x84\x88\x04', 'WR6ABD', 2, False)
 ])
-def test_unpack_repeater(in_packed, call, ssid, repeated):
+def test_unpack_repeater_ignore_reserved(in_packed, call, ssid, repeated):
     addr = ax25.Address.unpack(in_packed, repeater=True)
     assert addr.call == call
     assert addr.ssid == ssid

@@ -35,6 +35,7 @@ HDLC_AEB    = 0x01  # HDLC address extension bit
 SSID        = 0x1E  # SSID mask
 CMDRESP     = 0x80  # Command / response
 REPEATED    = 0x80  # Has been repeated
+RESERVED    = 0x60  # Reserved bits
 SSSID_SPARE = 0x40  # EAX25
 ESSID_SPARE = 0x20  # DAMA
 
@@ -295,6 +296,7 @@ class Address:
         else:
             if self._command_response:
                 b[ALEN] |= CMDRESP
+        b[ALEN] |= RESERVED
         return bytes(b)
 
     @classmethod

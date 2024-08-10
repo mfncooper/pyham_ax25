@@ -109,8 +109,8 @@ def test_getter_mnemonic_quality(in_mnem, in_qual, mnem, qual):
 
 
 def test_pack():
-    expected = (b'\xae\x62\x82\xae\x40\x40\x00\x44\x53\x54\x31'
-                b'\x20\x20\x96\xaa\x6c\xa6\x40\x40\x00\x2a')
+    expected = (b'\xae\x62\x82\xae\x40\x40\x60\x44\x53\x54\x31'
+                b'\x20\x20\x96\xaa\x6c\xa6\x40\x40\x60\x2a')
     d = ax25.netrom.Destination('W1AW', 'DST1', 'KU6S', 42)
     packed = d.pack()
     assert packed == expected

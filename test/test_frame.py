@@ -166,25 +166,25 @@ def test_getter_data(in_ft, in_data, data):
     "in_ft, in_dst, in_src, in_via, in_pid, in_data, expected",
     [
         (ax25.FrameType.RR, 'W1AW', 'WR6ABD', None, 0x00, None,
-            b'\xae\x62\x82\xae\x40\x40\x00'
-            b'\xae\xa4\x6c\x82\x84\x88\x01'
+            b'\xae\x62\x82\xae\x40\x40\x60'
+            b'\xae\xa4\x6c\x82\x84\x88\x61'
             b'\x01'),
         (ax25.FrameType.UI, 'W1AW', 'WR6ABD', None, 0xF0,
             b'Hello',
-            b'\xae\x62\x82\xae\x40\x40\x00'
-            b'\xae\xa4\x6c\x82\x84\x88\x01'
+            b'\xae\x62\x82\xae\x40\x40\x60'
+            b'\xae\xa4\x6c\x82\x84\x88\x61'
             b'\x03\xf0Hello'),
         (ax25.FrameType.UI, 'W1AW', 'WR6ABD', None, 0xF0,
             bytearray(b'Hello'),
-            b'\xae\x62\x82\xae\x40\x40\x00'
-            b'\xae\xa4\x6c\x82\x84\x88\x01'
+            b'\xae\x62\x82\xae\x40\x40\x60'
+            b'\xae\xa4\x6c\x82\x84\x88\x61'
             b'\x03\xf0Hello'),
         (ax25.FrameType.UI, 'W1AW', 'WR6ABD', ['K6EAG', 'KU6S'], 0xF0,
             b'Hello',
-            b'\xae\x62\x82\xae\x40\x40\x00'
-            b'\xae\xa4\x6c\x82\x84\x88\x00'
-            b'\x96\x6c\x8a\x82\x8e\x40\x00'
-            b'\x96\xaa\x6c\xa6\x40\x40\x01'
+            b'\xae\x62\x82\xae\x40\x40\x60'
+            b'\xae\xa4\x6c\x82\x84\x88\x60'
+            b'\x96\x6c\x8a\x82\x8e\x40\x60'
+            b'\x96\xaa\x6c\xa6\x40\x40\x61'
             b'\x03\xf0Hello')
     ])
 def test_pack(in_ft, in_dst, in_src, in_via, in_pid, in_data, expected):
@@ -199,25 +199,25 @@ def test_pack(in_ft, in_dst, in_src, in_via, in_pid, in_data, expected):
     "in_ft, in_dst, in_src, in_via, in_pid, in_data, expected",
     [
         (ax25.FrameType.RR, 'W1AW', 'WR6ABD', None, 0x00, None,
-            b'\xae\x62\x82\xae\x40\x40\x00'
-            b'\xae\xa4\x6c\x82\x84\x88\x01'
+            b'\xae\x62\x82\xae\x40\x40\x60'
+            b'\xae\xa4\x6c\x82\x84\x88\x61'
             b'\x01'),
         (ax25.FrameType.UI, 'W1AW', 'WR6ABD', None, 0xF0,
             b'Hello',
-            b'\xae\x62\x82\xae\x40\x40\x00'
-            b'\xae\xa4\x6c\x82\x84\x88\x01'
+            b'\xae\x62\x82\xae\x40\x40\x60'
+            b'\xae\xa4\x6c\x82\x84\x88\x61'
             b'\x03\xf0Hello'),
         (ax25.FrameType.UI, 'W1AW', 'WR6ABD', None, 0xF0,
             bytearray(b'Hello'),
-            b'\xae\x62\x82\xae\x40\x40\x00'
-            b'\xae\xa4\x6c\x82\x84\x88\x01'
+            b'\xae\x62\x82\xae\x40\x40\x60'
+            b'\xae\xa4\x6c\x82\x84\x88\x61'
             b'\x03\xf0Hello'),
         (ax25.FrameType.UI, 'W1AW', 'WR6ABD', ['K6EAG', 'KU6S'], 0xF0,
             b'Hello',
-            b'\xae\x62\x82\xae\x40\x40\x00'
-            b'\xae\xa4\x6c\x82\x84\x88\x00'
-            b'\x96\x6c\x8a\x82\x8e\x40\x00'
-            b'\x96\xaa\x6c\xa6\x40\x40\x01'
+            b'\xae\x62\x82\xae\x40\x40\x60'
+            b'\xae\xa4\x6c\x82\x84\x88\x60'
+            b'\x96\x6c\x8a\x82\x8e\x40\x60'
+            b'\x96\xaa\x6c\xa6\x40\x40\x61'
             b'\x03\xf0Hello')
     ])
 def test_pack_bytes(in_ft, in_dst, in_src, in_via, in_pid, in_data, expected):
