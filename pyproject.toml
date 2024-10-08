@@ -24,12 +24,15 @@ dynamic = ["version"]
 [project.urls]
 Documentation = "https://pyham_ax25.readthedocs.io"
 "Source Code" = "https://github.com/mfncooper/pyham_ax25"
+"Change Log" = "https://github.com/mfncooper/pyham_ax25/blob/main/CHANGELOG.md"
 
 [tool.flit.module]
 name = "ax25"
 
 [tool.flit.sdist]
 include = [
+    "CHANGELOG.md",
+    "LICENSE",
     "docs/",
     "examples/",
     "test/",
