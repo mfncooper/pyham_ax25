@@ -12,7 +12,7 @@ import ax25
 # -- Project information -----------------------------------------------------
 
 project = 'PyHam AX.25'
-copyright = '2024, Martin F N Cooper. All rights reserved'
+copyright = '2024-2025, Martin F N Cooper. All rights reserved'
 author = 'Martin F N Cooper'
 release = ax25.__version__
 version = release
