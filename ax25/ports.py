@@ -175,7 +175,10 @@ class PortInfo:
 
         axports = self._get_axport_info()
         for axport in axports:
-            axport.ifname = call_to_if[axport.callsign]
+            if axport.callsign in call_to_if:
+                axport.ifname = call_to_if[axport.callsign]
+            else:
+                axport.ifname = None
 
         self._port_info = axports
         return True
