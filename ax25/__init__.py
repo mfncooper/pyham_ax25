@@ -19,7 +19,7 @@ Protocol reference:
 """
 
 __author__ = 'Martin F N Cooper'
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 from enum import Enum
 
