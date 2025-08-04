@@ -174,10 +174,13 @@ class PortInfo:
             call_to_if[str(af)] = ifname
 
         axports = self._get_axport_info()
+        available = []
         for axport in axports:
-            axport.ifname = call_to_if[axport.callsign]
+            if axport.callsign in call_to_if:
+                axport.ifname = call_to_if[axport.callsign]
+                available.append(axport)
 
-        self._port_info = axports
+        self._port_info = available
         return True
 
     def first_port(self):
